@@ -1,5 +1,5 @@
 #!/usr/bin/php
-<?PHP
+<?PHP // DIVISION PAR ZERO ET MODULO trim not tab
     $i = 0;
     $nb1 = "";
     $nb2 = "";

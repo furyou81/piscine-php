@@ -58,7 +58,7 @@ nav > ul > li:hover{
 nav li:hover .ingredients{
     display: inline-block;
     position: absolute;
-    top: 100%;
+    top: 100%; /*pour se positionner sous le menu*/
     left: 0px;
     padding: 0px;
     z-index: 999999;
@@ -71,6 +71,10 @@ nav li:hover .ingredients{
 .ingredients li a{
     padding: 15px 30px;
     color: #EEE;
+}
+
+.sandwich{
+    border-right: solid white 1px;
 }
 
 .sandwich:hover{
