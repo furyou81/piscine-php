@@ -43,7 +43,7 @@
         $i = 1;
         while ($i < $argc)
         {
-            $split = preg_split("/[ ]+/", trim($argv[$i], " "));
+            $split = preg_split("/\s+/", trim($argv[$i]));
             $tab = array_merge($split, $tab);
             $i++;
         }
