@@ -1,6 +1,5 @@
 #!/usr/bin/php
 <?PHP
-    static $a;
     if ($argc == 2)
     {
         if ($argv[1] === "mais pourquoi cette demo ?")
@@ -9,10 +8,10 @@
             echo "Parce que Kwame a des enfants\n";
         else if ($argv[1] === "vraiment ?")
         {
-            if ($a > 0)
+            if (rand(0,1) == 1)
                 echo "Oui il a vraiment des enfants\n";
+            else
             echo "Nan c'est parce que c'est le premier avril\n";
-            $a++;
         }
     }
 ?>

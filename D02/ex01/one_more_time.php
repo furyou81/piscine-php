@@ -1,11 +1,13 @@
 #!/usr/bin/php
 <?PHP
-    date_default_timezone_set("Europe/Brussels");
-    ini_set('date.timezone', 'Europe/Brussels');
-    if (preg_match("/^(Lundi|Mardi|Mercredi|Jeudi|Vendredi|Samedi|Dimanche){1} (0[1-9]|[1-2][0-9]|[3][0-1]) (Janvier|Fevrier|Mars|Avril|Mai|Juin|Juillet|Aout|Septembre|Octobre|Novembre|Decembre){1} (19[7-9][0-9]|20[0-6][0-9]) (0[0-2]|1[0-9]|2[0-3])(:[0-5][0-9]){2}$/", $argv[1]))
+    date_default_timezone_set("Europe/Paris");
+    ini_set('date.timezone', 'Europe/Paris');
+    if (preg_match("/^([L|l]undi|[M|m]ardi|[M|m]ercredi|[J|j]eudi|[V|v]endredi|[S|s]amedi|[D|d]imanche){1} (0[1-9]|[1-2][0-9]|[3][0-1]) ([J|j]anvier|[F|f]evrier|[M|m]ars|[A|a]vril|[M|m]ai|[J|j]uin|[J|j]uillet|[A|a]out|[S|s]eptembre|[O|o]ctobre|[N|n]ovembre|[D|d]ecembre){1} (19[7-9][0-9]|20[0-6][0-9]) (0[0-2]|1[0-9]|2[0-3])(:[0-5][0-9]){2}$/", $argv[1]))
     {
-        $month = array("Janvier"=>1, "Fevrier"=>2, "Mars"=>3, "Avril"=>4, "Mai"=>5, "Juin"=>6, "Juillet"=>7, "Aout"=>8, "Septembre"=>9,"Octobre"=>10, "Novembre"=>11, "Decembre"=>12);
+        $month = array("Janvier"=>1, "Fevrier"=>2, "Mars"=>3, "Avril"=>4, "Mai"=>5, "Juin"=>6, "Juillet"=>7, "Aout"=>8, "Septembre"=>9,"Octobre"=>10, "Novembre"=>11, "Decembre"=>12,
+        "janvier"=>1, "fevrier"=>2, "mars"=>3, "avril"=>4, "mai"=>5, "juin"=>6, "juillet"=>7, "aout"=>8, "septembre"=>9,"octobre"=>10, "novembre"=>11, "decembre"=>12);
         $tab = preg_split("/ /", $argv[1]);
+
         $YY = intval($tab[3]);
         $MM = intval($month[$tab[2]]);
         $DD = intval($tab[1]);
