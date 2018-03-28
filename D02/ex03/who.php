@@ -1,68 +1,35 @@
 #!/usr/bin/php
 <?PHP
-date_default_timezone_set('Europe/Paris');
-    $file = "";
+    date_default_timezone_set('Europe/Paris');
+    function    ft_strcmpline($v1, $v2)
+    {
+        $s1 = $v1[line];
+        $s2 = $v2[line];
+        $i = 0;
+        $len1 = strlen($s1);
+        $len2 = strlen($s2);
+        $min = min($len1, $len2);
+        while (ord($s1[$i]) == ord($s2[$i]) && $i < $min)
+            $i++;
+            if ($i == $min)
+            {
+                if ($len1 < $len2)
+                    return (-ord($s2[$i]));
+                else
+                    return (ord($s1[$i]));
+            }
+        return (ord($s1[$i]) - ord($s2[$i]));
+    }
+    $USER_PROCESS = 7;
     $input = fopen("/var/run/utmpx", 'r');
     $tab = [];
-    $bin = [];
     while ($data = fread($input, 628))
+        array_push($tab, unpack("a256name/a4id/a32line/ipid/itype/Lsec/Lmsec/a256host/i16tmp",$data));
+        usort($tab, "ft_strcmpline");
+    foreach ($tab as $t)
     {
-        array_push($bin, $data);
-        //$tab = unpack("C256user_name", $data);
+        if ($t[type] == $USER_PROCESS)
+            printf("%-8s %-8s %s\n", trim($t[name]), trim($t[line]), date('D d H:i', $t[sec]));
     }
-    print_r($bin);
-    $final = [];
-    foreach($bin as $b)
-    {
-        $name = "";
-        $id = "";
-        $tty = "";
-        $pid = 0;
-        $ut = "";
-        $time = "";
-        $host = "";
-        $sec = 0;
-        $nsec = "";
-        $i = 0;
-        while ($i < 256)
-            $name .= $b[$i++];
-        while ($i < 256 + 4)
-            $id .= $b[$i++];
-        while ($i < 256 + 4 + 32)
-            $tty .= $b[$i++];
-            $j = 4;
-        while ($i < 256 + 4 + 32 + 4)
-        {
-            $pid = ($pid * $j * 8) + $b[$i++];
-            $j--;
-        }
-        while ($i < 256 + 4 + 32 + 4 + 2)
-            $ut .= $b[$i++];
-            $j = 7;
-        while ($i < 256 + 4 + 32 + 4 + 2 + 8)
-        {
-            $sec = $sec + (intval($b[$i]) << ($j * 8));
-            $j--;
-            $i++;
-            //$sec .= $b[$i++];
-        }
-        while ($i < 256 + 4 + 32 + 4 + 2 + 8 + 8)
-            $nsec .= $b[$i++];
-        while ($i < 256 + 4 + 32 + 4 + 2 + 16 + 256)
-            $host .= $b[$i++];
-            echo date('M/d/Y H:i:s', $sec) . "\n";
-        echo $name . " " .$id . " " . $tty . " " .$pid . " ut:" .$ut . " time:" . $sec . " / " . $nsec . " host:" . $host ."\n";
-    }
-    /*while ($tmp = fgets($input))
-        $file .= $tmp;
-        //echo $file . "\n";
     fclose($input);
-    $test = unpack("C*", $file);
-    print_r ($test);
-    foreach ($test as $t)
-    {
-        if ($t != 0)
-        echo chr($t);
-    }*/
-    //echo shell_exec("who") . "\n";
 ?>
